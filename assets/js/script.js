@@ -130,8 +130,9 @@ var fiveDayForecast = function(forecast) {
         iconImg.setAttribute('alt', forecast.daily[i].weather[0].main);
 
         displayTemp('#temp-' + i, forecast.daily[i].temp.day);
-        displayTemp('#high-' + i, forecast.daily[i].temp.max);
-        displayTemp('#low-' + i, forecast.daily[i].temp.min);
+
+        var windSpan = document.querySelector('#wind-speed-' + i);
+        windSpan.textContent = forecast.daily[i].wind_speed;
 
         var humiditySpan = document.querySelector('#humidity-' + i);
         humiditySpan.textContent = forecast.daily[i].humidity;
