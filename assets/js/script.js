@@ -1,8 +1,8 @@
 var cityInput = document.querySelector('#city-input');
 var cityBtn = document.querySelector('#search-btn');
-var cityName = document.querySelector('#city-name');
+var cityNameEl = document.querySelector('#city-name');
 var cityArr = [];
-var apiKey = '79f658aba940af52de73c233e50e40e1';
+var apiKey = 'e4ab7318fab329c7de8c4fd9dd5056d7'; // please enter API Key here
 
 var formHandler = function(event) {
     // formats city name
@@ -58,7 +58,7 @@ var getCityForecast = function(city, lon, lat) {
             response.json().then(function(data) {
 
                 // identifies city name in forecast
-                cityName.textContent = `${city} (${moment().format("M/D/YYYY")})`; 
+                cityNameEl.textContent = `${city} (${moment().format("M/D/YYYY")})`; 
 
                 console.log(data)
 
@@ -71,48 +71,49 @@ var getCityForecast = function(city, lon, lat) {
 
 // helper function to select HTML element and display rounded temperature
 var displayTemp = function(element, temperature) {
-    var temp = document.querySelector(element);
+    var tempEl = document.querySelector(element);
     var elementText = Math.round(temperature);
-    temp.textContent = elementText;
+    tempEl.textContent = elementText;
 }
 
 // displays current forecast
 var currentForecast = function(forecast) {
     
-    var forecast = document.querySelector('.city-forecast');
-    forecast.classList.remove('hide');
+    var forecastEl = document.querySelector('.city-forecast');
+    forecastEl.classList.remove('hide');
 
-    var weatherIcon = document.querySelector('#today-icon');
+    var weatherIconEl = document.querySelector('#today-icon');
     var currentIcon = forecast.current.weather[0].icon;
-    weatherIcon.setAttribute('src', `http://openweathermap.org/img/wn/${currentIcon}.png`);
-    weatherIcon.setAttribute('alt', forecast.current.weather[0].main)
+    weatherIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${currentIcon}.png`);
+    weatherIconEl.setAttribute('alt', forecast.current.weather[0].main)
 
     displayTemp('#current-temp', forecast.current['temp']);
 
-    var currentHumidity = document.querySelector('#current-humidity');
-    currentHumidity.textContent = forecast.current['humidity'];
 
-    var currentWind = document.querySelector('#current-wind-speed')
-    currentWind.textContent = forecast.current['wind_speed'];
+    var currentHumidityEl = document.querySelector('#current-humidity');
+    currentHumidityEl.textContent = forecast.current['humidity'];
 
-    var uvi = document.querySelector('#current-uvi')
+    var currentWindEl = document.querySelector('#current-wind-speed')
+    currentWindEl.textContent = forecast.current['wind_speed'];
+
+    var uviEl = document.querySelector('#current-uvi')
     var currentUvi = forecast.current['uvi'];
-    uvi.textContent = currentUvi;
+    uviEl.textContent = currentUvi;
 
     // styles UV index
     switch (true) {
         case (currentUvi <= 2):
-            uvi.className = 'badge badge-success';
+            uviEl.className = 'badge badge-success';
             break;
         case (currentUvi <= 5):
-            uvi.className = 'badge badge-warning';
+            uviEl.className = 'badge badge-warning';
             break;
         case (currentUvi <=7):
-            uvi.className = 'badge badge-danger';
+            uviEl.className = 'badge badge-danger';
             break;
         default:
-            uvi.className = 'badge text-light';
-            uvi.setAttribute('style', 'background-color: #553C7B');
+            uviEl.className = 'badge text-light';
+            uviEl.setAttribute('style', 'background-color: #553C7B');
     }
 }
 
