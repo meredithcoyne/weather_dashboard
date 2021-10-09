@@ -1,6 +1,6 @@
 var cityInput = document.querySelector('#city-input');
 var cityBtn = document.querySelector('#search-btn');
-var cityNameEl = document.querySelector('#city-name');
+var cityName = document.querySelector('#city-name');
 var cityArr = [];
 var apiKey = 'e4ab7318fab329c7de8c4fd9dd5056d7'; // please enter API Key here
 
@@ -71,7 +71,7 @@ var getCityForecast = function(city, lon, lat) {
 
 // helper function to select HTML element and display rounded temperature
 var displayTemp = function(element, temperature) {
-    var tempEl = document.querySelector(element);
+    var temp = document.querySelector(element);
     var elementText = Math.round(temperature);
     tempEl.textContent = elementText;
 }
@@ -82,18 +82,18 @@ var currentForecast = function(forecast) {
     var forecastEl = document.querySelector('.city-forecast');
     forecastEl.classList.remove('hide');
 
-    var weatherIconEl = document.querySelector('#today-icon');
+    var weatherIcon = document.querySelector('#today-icon');
     var currentIcon = forecast.current.weather[0].icon;
-    weatherIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${currentIcon}.png`);
-    weatherIconEl.setAttribute('alt', forecast.current.weather[0].main)
+    weatherIcon.setAttribute('src', `http://openweathermap.org/img/wn/${currentIcon}.png`);
+    weatherIcon.setAttribute('alt', forecast.current.weather[0].main)
 
     displayTemp('#current-temp', forecast.current['temp']);
 
 
-    var currentHumidityEl = document.querySelector('#current-humidity');
+    var currentHumidity = document.querySelector('#current-humidity');
     currentHumidityEl.textContent = forecast.current['humidity'];
 
-    var currentWindEl = document.querySelector('#current-wind-speed')
+    var currentWind = document.querySelector('#current-wind-speed')
     currentWindEl.textContent = forecast.current['wind_speed'];
 
     var uviEl = document.querySelector('#current-uvi')
@@ -113,7 +113,7 @@ var currentForecast = function(forecast) {
             break;
         default:
             uviEl.className = 'badge text-light';
-            uviEl.setAttribute('style', 'background-color: #553C7B');
+            uviEl.setAttribute('style', 'background-color: #E53210');
     }
 }
 
