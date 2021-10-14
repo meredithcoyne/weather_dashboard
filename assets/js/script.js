@@ -1,8 +1,8 @@
 var cityInput = document.querySelector('#city-input');
 var cityBtn = document.querySelector('#search-btn');
-var cityName = document.querySelector('#city-name');
+var cityNameEl = document.querySelector('#city-name');
 var cityArr = [];
-var apiKey = 'e4ab7318fab329c7de8c4fd9dd5056d7'; // please enter API Key here
+var apiKey = '79f658aba940af52de73c233e50e40e1'; // please enter API Key here
 
 var formHandler = function(event) {
     // formats city name
@@ -22,7 +22,7 @@ var formHandler = function(event) {
     };
 };
 
-// uses 'open call api' to fetch latitude and longitude
+// uses 'current weather api' to fetch latitude and longitude
 var getCoords = function(city) {
     var currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
@@ -71,7 +71,7 @@ var getCityForecast = function(city, lon, lat) {
 
 // helper function to select HTML element and display rounded temperature
 var displayTemp = function(element, temperature) {
-    var temp = document.querySelector(element);
+    var tempEl = document.querySelector(element);
     var elementText = Math.round(temperature);
     tempEl.textContent = elementText;
 }
@@ -82,23 +82,23 @@ var currentForecast = function(forecast) {
     var forecastEl = document.querySelector('.city-forecast');
     forecastEl.classList.remove('hide');
 
-    var weatherIcon = document.querySelector('#today-icon');
+    var weatherIconEl = document.querySelector('#today-icon');
     var currentIcon = forecast.current.weather[0].icon;
-    weatherIcon.setAttribute('src', `http://openweathermap.org/img/wn/${currentIcon}.png`);
-    weatherIcon.setAttribute('alt', forecast.current.weather[0].main)
+    weatherIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${currentIcon}.png`);
+    weatherIconEl.setAttribute('alt', forecast.current.weather[0].main)
 
     displayTemp('#current-temp', forecast.current['temp']);
 
 
-    var currentHumidity = document.querySelector('#current-humidity');
+    var currentHumidityEl = document.querySelector('#current-humidity');
     currentHumidityEl.textContent = forecast.current['humidity'];
 
-    var currentWind = document.querySelector('#current-wind-speed')
+    var currentWindEl = document.querySelector('#current-wind-speed')
     currentWindEl.textContent = forecast.current['wind_speed'];
 
-    var uviEl = document.querySelector('#current-uvi')
+    var uvi = document.querySelector('#current-uvi')
     var currentUvi = forecast.current['uvi'];
-    uviEl.textContent = currentUvi;
+    uvi.textContent = currentUvi;
 
     // styles UV index
     switch (true) {
@@ -106,14 +106,14 @@ var currentForecast = function(forecast) {
             uviEl.className = 'badge badge-success';
             break;
         case (currentUvi <= 5):
-            uviEl.className = 'badge badge-warning';
+            uvi.className = 'badge badge-warning';
             break;
         case (currentUvi <=7):
-            uviEl.className = 'badge badge-danger';
+            uvi.className = 'badge badge-danger';
             break;
         default:
-            uviEl.className = 'badge text-light';
-            uviEl.setAttribute('style', 'background-color: #E53210');
+            uvi.className = 'badge text-light';
+            uvi.setAttribute('style', 'background-color: #553C7B');
     }
 }
 
